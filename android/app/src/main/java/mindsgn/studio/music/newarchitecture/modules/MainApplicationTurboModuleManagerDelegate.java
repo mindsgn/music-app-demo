@@ -1,4 +1,4 @@
-package com.music.newarchitecture.modules;
+package mindsgn.studio.music.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
