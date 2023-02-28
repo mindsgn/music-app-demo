@@ -1,6 +1,6 @@
 {
   "name": "orisa",
-  "version": "0.1.1",
+  "version": "0.0.1",
   "private": true,
   "husky": {
     "hooks": {
@@ -8,7 +8,7 @@
     }
   },
   "lint-staged": {
-    "**/*.js": [
+    "**/*.tsx": [
       "eslint --fix",
       "yarn version --patch",
       "git add"
