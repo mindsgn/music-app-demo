@@ -1,7 +1,6 @@
 before_all do
     ensure_git_branch(branch: 'android-main')
     ensure_git_status_clean
-    git_pull
 end
 
 platform :android do
