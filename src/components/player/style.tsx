@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  button: {
+    marginLeft: 5,
+    marginRight: 5,
+  },
   track: {
     fontSize: 21,
     color: 'white',
