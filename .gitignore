@@ -24,6 +24,7 @@ ios/.xcode.env.local
 *.properties
 *.env
 fastlane/README.md
+play-store-credentials.json
 
 # Android/IntelliJ
 #

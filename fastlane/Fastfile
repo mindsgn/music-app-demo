@@ -2,21 +2,29 @@ package = load_json(json_path: "./package.json")
 
 before_all do
     ensure_git_branch(branch: 'android-main')
-    
     ensure_git_status_clean
     git_pull
 end
 
 platform :android do
-    desc "Android build and release to beta"
+    desc "Android build and release to beta / release"
     lane :beta do
+        json_key_file("./play-store-credentials.json")
+        package_name("mindsgn.studio.music")
         increment_version_code(gradle_file_path: "./android/app/build.gradle")
         increment_version_name(gradle_file_path: "./android/app/build.gradle", version_name: package['version'])
         gradle(task: 'clean', project_dir: './android/')
         gradle(task: 'bundle', build_type: 'Release', project_dir: './android')
         supply(track: 'beta', aab: './android/app/build/outputs/bundle/release/app-release.aab')
-        git_add(path: "./android/app/build.gradle")
-        git_commit(path: "./android/app/build.gradle", message: "Version Bump")
-        push_to_git_remote(remote: "origin", set_upstream: true , tags: false)
+    end
+
+    lane :release do
+        json_key_file("./play-store-credentials.json")
+        package_name("mindsgn.studio.music")
+        increment_version_code(gradle_file_path: "./android/app/build.gradle")
+        increment_version_name(gradle_file_path: "./android/app/build.gradle", version_name: package['version'])
+        gradle(task: 'clean', project_dir: './android/')
+        gradle(task: 'bundle', build_type: 'Release', project_dir: './android')
+        supply(track: 'release', aab: './android/app/build/outputs/bundle/release/app-release.aab')
     end
 end
