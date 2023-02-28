@@ -8,7 +8,7 @@
     }
   },
   "lint-staged": {
-    "**/*.tsx": [
+    "**/**/*.tsx": [
       "eslint --fix",
       "yarn version --patch",
       "git add"
