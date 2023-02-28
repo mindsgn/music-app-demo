@@ -23,6 +23,7 @@ DerivedData
 ios/.xcode.env.local
 *.properties
 *.env
+fastlane/README.md
 
 # Android/IntelliJ
 #
