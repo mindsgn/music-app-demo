@@ -2,6 +2,18 @@
   "name": "orisa",
   "version": "0.1.1",
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "yarn version --patch",
+      "git add"
+    ]
+  },
   "scripts": {
     "postinstall": "husky install",
     "android": "react-native run-android",
@@ -9,7 +21,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "android:beta": "yarn version --patch && fastlane android beta",
+    "android:beta": "yarn version --minor && fastlane android beta",
     "android:release": "yarn version --major && fastlane android release"
   },
   "dependencies": {
