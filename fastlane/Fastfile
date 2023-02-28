@@ -1,5 +1,8 @@
 before_all do
     ensure_git_branch(branch: 'android-main')
+    git_add(path: "./android/app/build.gradle")
+    git_commit(path: "./android/app/build.gradle", message: "Version Bump")
+    push_to_git_remote(remote: "origin", set_upstream: false , tags: false)
     ensure_git_status_clean
 end
 
@@ -7,9 +10,6 @@ platform :android do
     desc "Android build and release to beta"
     lane :beta do
         increment_version_code(gradle_file_path: "./android/app/build.gradle")
-        git_add(path: "./android/app/build.gradle")
-        git_commit(path: "./android/app/build.gradle", message: "Version Bump")
-        push_to_git_remote(remote: "origin", set_upstream: true , tags: false)
         gradle(task: 'clean', project_dir: './android/')
         gradle(task: 'bundle', build_type: 'Release', project_dir: './android')
         supply(track: 'beta', aab: './android/app/build/outputs/bundle/release/app-release.aab')
