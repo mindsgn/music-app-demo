@@ -9,7 +9,7 @@ platform :android do
     desc "Android build and release to beta"
     lane :beta do
         increment_version_code(gradle_file_path: "./android/app/build.gradle")
-        increment_version_name
+        increment_version_name(gradle_file_path: "./android/app/build.gradle", version_name: package['version'])
         gradle(task: 'clean', project_dir: './android/')
         gradle(task: 'bundle', build_type: 'Release', project_dir: './android')
         supply(track: 'beta', aab: './android/app/build/outputs/bundle/release/app-release.aab')
