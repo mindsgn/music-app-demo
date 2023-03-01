@@ -1,16 +1,25 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     position: 'absolute',
     display: 'flex',
-    flexDirection: 'row',
-    bottom: '2%',
-    width: '100%',
-    height: 60,
-    backgroundColor: 'black',
     zIndex: 1,
+    width: '100%',
+    height: 100,
+    bottom: '2%',
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    padding: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    width: '95%',
+    borderRadius: 20,
+    backgroundColor: 'rgba(0,0, 0, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   detailsContainer: {
     display: 'flex',
