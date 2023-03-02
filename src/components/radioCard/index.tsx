@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './style';
 import {connect} from 'react-redux';
 
 const RadioCard: React.FC = () => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.detailsContainer}>
         <View>
           <Text style={styles.title}>Welcome to Naledi</Text>
@@ -18,7 +18,7 @@ const RadioCard: React.FC = () => {
         </View>
       </View>
       <View />
-    </View>
+    </TouchableOpacity>
   );
 };
 

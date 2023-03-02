@@ -9,12 +9,12 @@ const PlayerAction = (props: any) => {
     });
   };
 
-  const play = () => {
+  const play = (artist: string, title: string) => {
     dispatch({
       type: PLAY,
       isPlaying: true,
-      artist: 'krule',
-      title: 'blue',
+      artist: artist,
+      title: title,
     });
   };
 
