@@ -15,10 +15,10 @@ const Player: React.FC = (props: any) => {
         <View style={styles.detailsContainer}>
           <View>
             <TouchableOpacity>
-              <Text style={styles.track}>{title}</Text>
+              <Text style={styles.track}>{title.substring(0, 20)}</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={styles.artist}>{artist}</Text>
+              <Text style={styles.artist}>{artist.substring(0, 20)}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -35,7 +35,7 @@ const Player: React.FC = (props: any) => {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                play();
+                play('', '');
               }}>
               <Icon name="play" size={30} color="white" />
             </TouchableOpacity>
