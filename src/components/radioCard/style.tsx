@@ -21,12 +21,14 @@ const styles = StyleSheet.create({
   buttonContainer: {},
   title: {
     color: 'white',
-    fontSize: 32,
+    fontSize: 21,
     fontWeight: 'bold',
+    width: '80%',
   },
   text: {
     color: 'white',
     fontSize: 12,
+    width: '80%',
   },
 });
 

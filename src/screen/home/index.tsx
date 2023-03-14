@@ -2,10 +2,15 @@ import React from 'react';
 import {View} from 'react-native';
 import styles from './style';
 import {connect} from 'react-redux';
-import {RadioCard, HorizontalScroll} from '../../components';
+import {
+  RadioCard,
+  HorizontalScroll,
+  LoadingHorizontalScroll,
+} from '../../components';
 
 const Home = (props: any) => {
   const [trending, setTrending] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   const getTrending = () => {
     const headers = {
@@ -18,6 +23,7 @@ const Home = (props: any) => {
       headers: headers,
     })
       .then(res => {
+        setIsLoading(false);
         return res.json();
       })
       .catch(error => {
@@ -35,7 +41,11 @@ const Home = (props: any) => {
   return (
     <View style={styles.container}>
       <RadioCard />
-      <HorizontalScroll text="Trending" data={trending} props={props} />
+      {isLoading ? (
+        <LoadingHorizontalScroll text="Trending" data={[{}, {}]} />
+      ) : (
+        <HorizontalScroll text="Trending" data={trending} props={props} />
+      )}
     </View>
   );
 };

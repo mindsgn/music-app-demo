@@ -1,16 +1,34 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableOpacity, Text, Animated} from 'react-native';
 import styles from './style';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {connect} from 'react-redux';
 import PlayerAction from '../../redux/actions';
 
 const Player: React.FC = (props: any) => {
+  const opacity = React.useRef(new Animated.Value(0)).current;
   const {play, pause} = PlayerAction(props);
   const {title, artist, isPlaying} = props;
 
+  React.useEffect(() => {
+    if (isPlaying) {
+      Animated.timing(opacity, {
+        toValue: 1,
+        delay: 1500,
+        duration: 2500,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isPlaying, opacity]);
+
   return (
-    <View style={styles.wrapper}>
+    <Animated.View
+      style={[
+        styles.wrapper,
+        {
+          opacity,
+        },
+      ]}>
       <View style={styles.container}>
         <View style={styles.detailsContainer}>
           <View>
@@ -50,7 +68,7 @@ const Player: React.FC = (props: any) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
