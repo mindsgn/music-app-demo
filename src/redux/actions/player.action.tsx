@@ -1,4 +1,5 @@
 import {PLAY, PAUSE} from '../../constants';
+
 const PlayerAction = (props: any) => {
   const {dispatch} = props;
 
@@ -9,12 +10,13 @@ const PlayerAction = (props: any) => {
     });
   };
 
-  const play = (artist: string, title: string) => {
+  const play = (artist: string, title: string, url: string) => {
     dispatch({
       type: PLAY,
       isPlaying: true,
       artist: artist,
       title: title,
+      url: url,
     });
   };
 
