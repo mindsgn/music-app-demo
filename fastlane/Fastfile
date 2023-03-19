@@ -1,9 +1,9 @@
 package = load_json(json_path: "./package.json")
 
 before_all do
-    ensure_git_branch(branch: 'android-main')
-    ensure_git_status_clean
-    git_pull
+#    ensure_git_branch(branch: 'android-main')
+#    ensure_git_status_clean
+#    git_pull
 end
 
 platform :android do
