@@ -1,5 +1,5 @@
 import React from 'react';
-import {Home, Album, Artist} from './src/screen';
+import {Home} from './src/screen';
 import {SafeAreaView, StatusBar} from 'react-native';
 import {Player} from './src/components';
 import {Provider} from 'react-redux';
@@ -26,11 +26,8 @@ const App = () => {
                 headerShown: false,
               }}>
               <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Album" component={Album} />
-              <Stack.Screen name="Artist" component={Artist} />
             </Stack.Navigator>
           </NavigationContainer>
-          <Player />
         </PersistGate>
       </Provider>
     </SafeAreaView>

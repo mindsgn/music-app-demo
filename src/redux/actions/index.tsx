@@ -1,2 +1,4 @@
 import PlayerAction from './player.action';
-export default PlayerAction;
+import APIAction from './api.reducer';
+
+export default {APIAction, PlayerAction};
