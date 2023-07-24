@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import PlayerAction from '../../redux/actions/player.action';
 
 const TrackList = (props: any) => {
-  const {play} = PlayerAction(props);
+  const {playNew} = PlayerAction(props);
   const [tracks, setTracks] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const getTracks = async () => {
@@ -43,7 +43,7 @@ const TrackList = (props: any) => {
           ListFooterComponent={<></>}
           data={tracks}
           initialNumToRender={10}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
           style={styles.listContainer}
           getItemCount={getItemCount}
           getItem={getItem}
@@ -53,7 +53,7 @@ const TrackList = (props: any) => {
               title={item.title}
               artist={item.name}
               play={() => {
-                play(item.name, item.title, item.link, item.art);
+                playNew(item.name, item.title, item.link, item.art);
               }}
             />
           )}

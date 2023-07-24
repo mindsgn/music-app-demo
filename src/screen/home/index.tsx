@@ -6,8 +6,8 @@ import {TrackList, PlayerCard} from '../../components';
 import PlayerActions from '../../redux/actions/player.action';
 
 const Home = (props: any) => {
-  const {play, pause} = PlayerActions(props);
-  const {artist, title, art, isPlaying} = props;
+  const {play} = PlayerActions(props);
+  const {artist, title, art, isPlaying, link} = props;
 
   return (
     <View style={styles.container}>
@@ -16,9 +16,9 @@ const Home = (props: any) => {
         artist={artist}
         title={title}
         art={art}
+        link={link}
         isPlaying={isPlaying}
         play={() => play()}
-        pause={() => pause()}
       />
     </View>
   );
@@ -30,6 +30,7 @@ const mapStateToProps = (state: any) => {
     title: state.playerReducer.title,
     art: state.playerReducer.art,
     isPlaying: state.playerReducer.isPlaying,
+    link: state.playerReducer.link,
   };
 };
 
