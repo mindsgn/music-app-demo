@@ -1,7 +1,6 @@
 import React from 'react';
 import {Home} from './src/screen';
 import {SafeAreaView, StatusBar} from 'react-native';
-import {Player} from './src/components';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
