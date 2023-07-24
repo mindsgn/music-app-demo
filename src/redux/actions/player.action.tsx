@@ -1,23 +1,36 @@
 import {PLAY, PAUSE} from '../../constants';
+import Sound from 'react-native-sound';
+Sound.setCategory('Playback');
 
 const PlayerAction = (props: any) => {
   const {dispatch} = props;
 
-  const pause = () => {
-    dispatch({
-      type: PAUSE,
-      isPlaying: false,
-    });
+  const play = (
+    artist?: string,
+    title?: string,
+    link?: string,
+    art?: string,
+  ) => {
+    try {
+      console.log(art);
+
+      dispatch({
+        type: PLAY,
+        artist,
+        title,
+        link,
+        art,
+      });
+    } catch (error) {}
   };
 
-  const play = (artist: string, title: string, url: string) => {
-    dispatch({
-      type: PLAY,
-      isPlaying: true,
-      artist: artist,
-      title: title,
-      url: url,
-    });
+  const pause = () => {
+    try {
+      dispatch({
+        type: PAUSE,
+        isPlaying: false,
+      });
+    } catch (error) {}
   };
 
   const next = () => {};

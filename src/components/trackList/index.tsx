@@ -1,10 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, VirtualizedList} from 'react-native';
 import TrackCard from '../trackCard';
 import styles from './style';
+import RadioCard from '../radioCard';
+import {connect} from 'react-redux';
+import PlayerAction from '../../redux/actions/player.action';
 
-const TrackList = () => {
-  const [tracks, setTracks] = useState<any[]>([{}, {}, {}]);
+const TrackList = (props: any) => {
+  const {play} = PlayerAction(props);
+  const [tracks, setTracks] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const getTracks = async () => {
     fetch('https://plankton-app-5voay.ondigitalocean.app/track/all?limit=100')
       .then(response => {
@@ -13,34 +18,57 @@ const TrackList = () => {
       .then(response => {
         const {data} = response;
         setTracks(data);
+        setLoading(false);
       })
       .catch((error: any) => {
         console.log(error);
       });
   };
 
+  const getItem = (data: any, index: any) => {
+    return data[index];
+  };
+
+  const getItemCount = () => tracks.length;
+
   useEffect(() => {
     getTracks();
-  });
+  }, []);
 
   return (
     <View style={styles.container}>
-      <FlatList
-        style={styles.listContainer}
-        data={tracks}
-        renderItem={({item}: {item: any}) => (
-          <TrackCard
-            key={item._id}
-            background={item.background}
-            title={item.title}
-            artist={item.artist}
-            link={item.link}
-          />
-        )}
-        keyExtractor={item => item.id}
-      />
+      {loading ? null : (
+        <VirtualizedList
+          ListHeaderComponent={<RadioCard />}
+          ListFooterComponent={<></>}
+          data={tracks}
+          initialNumToRender={10}
+          keyExtractor={item => item.id}
+          style={styles.listContainer}
+          getItemCount={getItemCount}
+          getItem={getItem}
+          renderItem={({item}: {item: any}) => (
+            <TrackCard
+              art={item.art}
+              title={item.title}
+              artist={item.name}
+              play={() => {
+                play(item.name, item.title, item.link, item.art);
+              }}
+            />
+          )}
+        />
+      )}
     </View>
   );
 };
 
-export default TrackList;
+const mapStateToProps = (state: any) => {
+  return {
+    isPlaying: state.playerReducer.isPlaying,
+    artist: state.playerReducer.artist,
+    title: state.playerReducer.title,
+  };
+};
+
+export default connect(mapStateToProps)(TrackList);

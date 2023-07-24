@@ -1,10 +1,23 @@
-import {PLAY, PAUSE} from './../../constants';
+import {PLAY} from './../../constants';
 
-const initialState: any = {
+interface PlayerInterface {
+  isPlaying: boolean;
+  artist: null | string;
+  title: null | string;
+  link: null | string;
+  art: null | string;
+  playlist: null | any[];
+  showPlayer: boolean;
+}
+
+const initialState: PlayerInterface = {
   isPlaying: false,
-  artist: '',
-  title: '',
-  playlist: [],
+  artist: null,
+  title: null,
+  link: null,
+  art: null,
+  playlist: null,
+  showPlayer: false,
 };
 
 const Player = (state = initialState, action: any) => {
@@ -14,12 +27,9 @@ const Player = (state = initialState, action: any) => {
         ...state,
         artist: action.artist,
         title: action.title,
+        art: action.art,
+        link: action.link,
         isPlaying: true,
-      };
-    case PAUSE:
-      return {
-        ...state,
-        isPlaying: false,
       };
     default:
       return state;

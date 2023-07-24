@@ -1,32 +1,50 @@
 import React from 'react';
-import {View, Text, Touchable, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from './style';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const TrackCard = ({
   artist,
   title,
-  link,
-  background,
+  art = '',
+  play,
 }: {
-  artist: string;
-  title: string;
-  link: string;
-  background: string;
+  artist?: string;
+  title?: string;
+  art?: any;
+  play: () => void;
 }) => {
   return (
-    <View style={styles.container}>
-      <View />
-      <View>
+    <ImageBackground
+      style={styles.container}
+      source={{uri: art}}
+      resizeMode="cover">
+      <View style={styles.details}>
         <View>
-          <Text style={styles.text}>{artist}</Text>
-          <Text style={styles.text}>{title}</Text>
+          <View
+            style={{
+              maxWidth: 250,
+            }}>
+            <Text numberOfLines={1} style={styles.textTitle}>
+              {title}
+            </Text>
+          </View>
+          <View
+            style={{
+              maxWidth: 100,
+            }}>
+            <Text numberOfLines={1} style={styles.textArtist}>
+              {artist}
+            </Text>
+          </View>
         </View>
-
-        <TouchableOpacity>
-          <Text>Play</Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity style={styles.button} onPress={play}>
+            <Icon name="play" size={10} color="black" />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

@@ -28,9 +28,9 @@ const RadioCard: React.FC = () => {
 
 const mapStateToProps = (state: any) => {
   return {
-    isPlaying: state.Player.isPlaying,
-    artist: state.Player.artist,
-    title: state.Player.title,
+    isPlaying: state.playerReducer.isPlaying,
+    artist: state.playerReducer.artist,
+    title: state.playerReducer.title,
   };
 };
 
