@@ -1,4 +1,4 @@
-import {PLAY} from './../../constants';
+import {PLAY, PLAY_NEW, STOP, PAUSE} from './../../constants';
 
 interface PlayerInterface {
   isPlaying: boolean;
@@ -8,6 +8,9 @@ interface PlayerInterface {
   art: null | string;
   playlist: null | any[];
   showPlayer: boolean;
+  music?: any | null;
+  recentTracks?: any | null;
+  current?: any | null;
 }
 
 const initialState: PlayerInterface = {
@@ -16,20 +19,42 @@ const initialState: PlayerInterface = {
   title: null,
   link: null,
   art: null,
+  music: null,
   playlist: null,
+  recentTracks: null,
   showPlayer: false,
+  current: null,
 };
 
 const Player = (state = initialState, action: any) => {
   switch (action.type) {
-    case PLAY:
+    case PLAY_NEW:
       return {
         ...state,
         artist: action.artist,
         title: action.title,
         art: action.art,
         link: action.link,
+        music: action.music,
         isPlaying: true,
+        showPlayer: true,
+      };
+    case PLAY:
+      return {
+        ...state,
+        isPlaying: true,
+        showPlayer: true,
+      };
+    case PAUSE:
+      return {
+        ...state,
+        isPlaying: false,
+      };
+    case STOP:
+      return {
+        ...state,
+        isPlaying: false,
+        showPlayer: false,
       };
     default:
       return state;
