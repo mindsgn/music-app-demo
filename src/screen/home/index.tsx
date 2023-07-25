@@ -4,6 +4,7 @@ import styles from './style';
 import {connect} from 'react-redux';
 import {TrackList, PlayerCard} from '../../components';
 import PlayerActions from '../../redux/actions/player.action';
+import Header from '../../components/header';
 
 const Home = (props: any) => {
   const {play} = PlayerActions(props);
@@ -11,6 +12,7 @@ const Home = (props: any) => {
 
   return (
     <View style={styles.container}>
+      <Header />
       <TrackList />
       <PlayerCard
         artist={artist}

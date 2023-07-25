@@ -23,6 +23,7 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@realm/react": "^0.4.3",
+    "@walletconnect/react-native-dapp": "^1.8.0",
     "buffer": "^6.0.3",
     "console-browserify": "^1.2.0",
     "expo-gl": "^12.4.0",

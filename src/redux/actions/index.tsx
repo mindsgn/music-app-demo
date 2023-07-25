@@ -1,3 +1,5 @@
+import APIAction from './api.action';
 import PlayerAction from './player.action';
+import UserAction from './user.action';
 
-export default {PlayerAction};
+export {PlayerAction, APIAction, UserAction};
