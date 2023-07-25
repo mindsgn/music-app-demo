@@ -1,3 +1,5 @@
-import Player from './player.reducer';
+import playerReducer from './player.reducer';
+import userReducer from './user.reducer';
+import APIReducer from './api.reducer';
 
-export default Player;
+export {playerReducer, userReducer, APIReducer};

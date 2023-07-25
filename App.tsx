@@ -6,6 +6,8 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {store, persistor} from './src/redux/store';
+import {withWalletConnect} from '@walletconnect/react-native-dapp';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 StatusBar.setHidden(true);
 
@@ -33,4 +35,16 @@ const App = () => {
   );
 };
 
-export default App;
+export default withWalletConnect(App, {
+  bridge: 'https://bridge.walletconnect.org',
+  clientMeta: {
+    url: 'https://mixo.xyz',
+    icons: [''],
+    name: 'mixo',
+    description: 'web3 music',
+  },
+  redirectUrl: 'mixo://',
+  storageOptions: {
+    asyncStorage: AsyncStorage as any,
+  },
+});
