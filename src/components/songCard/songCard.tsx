@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from './style';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const TrackCard = ({
+const SongCard = ({
   artist,
   title,
   art = '',
@@ -11,7 +11,7 @@ const TrackCard = ({
 }: {
   artist?: string;
   title?: string;
-  art?: any;
+  art?: string;
   play: () => void;
 }) => {
   return (
@@ -48,4 +48,4 @@ const TrackCard = ({
   );
 };
 
-export default TrackCard;
+export default SongCard;

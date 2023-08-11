@@ -1,39 +1,63 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import styles from './style';
-import {connect} from 'react-redux';
-import {TrackList, PlayerCard} from '../../components';
-import PlayerActions from '../../redux/actions/player.action';
-import Header from '../../components/header';
+import {trpc} from '../../utils/trpc';
+import {Logo, Error, SongList} from '../../components';
 
-const Home = (props: any) => {
-  const {play} = PlayerActions(props);
-  const {artist, title, art, isPlaying, link} = props;
+const Home = () => {
+  const [songData, setSongData] = useState<any[]>([]);
+  const [extraData, setExtraData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [hasError, setError] = useState<boolean>(false);
+
+  const getDatabase = async () => {
+    try {
+      const songResponse = await trpc.getSongs.query();
+      const searchResponse = await trpc.searchSongs.query();
+      console.log(searchResponse);
+      const {data} = songResponse;
+      if (data.length === 0 && songData.length === 0) {
+        setError(true);
+      } else {
+        const uniqueIdsData1 = new Set(
+          songData.map(item => JSON.stringify(item)),
+        );
+
+        const newSongData = data.filter(
+          item => !uniqueIdsData1.has(JSON.stringify(item)),
+        );
+
+        if (songData.length <= 0) {
+          setSongData(prevSongData => [...prevSongData, ...newSongData]);
+        } else {
+          setExtraData(prevSongData => [...prevSongData, ...newSongData]);
+        }
+      }
+      setLoading(false);
+    } catch (error: any) {
+      setLoading(false);
+      setError(true);
+    }
+  };
+
+  useEffect(() => {
+    getDatabase();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Header />
-      <TrackList />
-      <PlayerCard
-        artist={artist}
-        title={title}
-        art={art}
-        link={link}
-        isPlaying={isPlaying}
-        play={() => play()}
+      <SongList
+        data={songData}
+        extraData={extraData}
+        onEndReach={() => {
+          getDatabase();
+        }}
       />
+      <Logo loading={loading} />
+      <Error error={hasError} />
     </View>
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    artist: state.playerReducer.artist,
-    title: state.playerReducer.title,
-    art: state.playerReducer.art,
-    isPlaying: state.playerReducer.isPlaying,
-    link: state.playerReducer.link,
-  };
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;
