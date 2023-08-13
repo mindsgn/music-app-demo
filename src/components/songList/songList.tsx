@@ -1,17 +1,9 @@
 import React from 'react';
-import {View, VirtualizedList} from 'react-native';
+import {View, VirtualizedList, FlatList} from 'react-native';
 import SongCard from '../songCard/songCard';
 import styles from './style';
 
-const SongList = ({
-  data,
-  onEndReach,
-  extraData,
-}: {
-  data: any[];
-  onEndReach: any;
-  extraData: any[];
-}) => {
+const SongList = ({data, onEndReach}: {data: any[]; onEndReach: any}) => {
   const getItem = (items: any, index: any) => {
     return items[index];
   };
@@ -20,16 +12,10 @@ const SongList = ({
 
   return (
     <View style={styles.container}>
-      <VirtualizedList
+      <FlatList
         data={data}
-        initialNumToRender={4}
-        keyExtractor={item => item._id}
-        style={styles.listContainer}
-        getItemCount={getItemCount}
-        getItem={getItem}
-        onEndReached={() => onEndReach()}
-        onEndReachedThreshold={40}
-        extraData={extraData}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={50}
         renderItem={({item, index}: {item: any; index: number}) => {
           return (
             <SongCard
