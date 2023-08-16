@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import styles from './style';
 import Animated, {
@@ -15,7 +15,7 @@ const Logo = ({loading}: {loading: boolean}) => {
     transform: [{translateY: offset.value}],
   }));
 
-  React.useEffect(() => {
+  useEffect(() => {
     offset.value = withRepeat(
       withTiming(-offset.value, {duration: 1300}),
       0,
