@@ -21,11 +21,7 @@ const Home = () => {
 
   const getDatabase = async () => {
     try {
-      const state = await TrackPlayer.getState();
-      if (state === State.Playing) {
-        TrackPlayer.pause();
-      }
-
+      await TrackPlayer.setupPlayer();
       const songResponse = await trpc.getSongs.query({
         limit: 10,
         page,
@@ -55,8 +51,10 @@ const Home = () => {
   const Play = async () => {
     try {
       if (current) {
-        await TrackPlayer.setupPlayer();
-
+        const state = await TrackPlayer.getState();
+        if (state === State.Playing) {
+          TrackPlayer.reset();
+        }
         await TrackPlayer.add({
           id: 'trackId',
           url: `${current.link}`,
@@ -73,13 +71,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    async () => {
-      await TrackPlayer.setupPlayer();
-      await getDatabase();
-    };
+    getDatabase();
+    async () => {};
   }, []);
 
-  useEffect(() => {}, [current]);
+  useEffect(() => {
+    if (current && current.link) {
+      Play();
+    }
+  }, [current]);
 
   return (
     <View style={styles.container}>
