@@ -8,11 +8,13 @@ const SongCard = ({
   artist,
   title,
   art = '',
+  link = null,
   play,
 }: {
   artist?: string;
   title?: string;
   art?: string;
+  link?: string;
   play: () => void;
 }) => {
   return (

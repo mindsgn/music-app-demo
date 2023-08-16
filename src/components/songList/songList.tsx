@@ -30,6 +30,7 @@ const SongList = ({
                   image: item.artwork,
                   title: item.title,
                   artist: item.artist,
+                  link: item.link,
                 })
               }
             />
