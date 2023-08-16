@@ -3,11 +3,13 @@ import {View} from 'react-native';
 import styles from './style';
 import {trpc} from '../../utils/trpc';
 import {Logo, Error, SongList, Player, Header} from '../../components';
+import TrackPlayer, {State} from 'react-native-track-player';
 
 interface CurrentProps {
   artist: string;
   title: string;
   image: string;
+  link: string;
 }
 
 const Home = () => {
@@ -19,6 +21,11 @@ const Home = () => {
 
   const getDatabase = async () => {
     try {
+      const state = await TrackPlayer.getState();
+      if (state === State.Playing) {
+        TrackPlayer.pause();
+      }
+
       const songResponse = await trpc.getSongs.query({
         limit: 10,
         page,
@@ -39,14 +46,40 @@ const Home = () => {
       }
       setLoading(false);
     } catch (error: any) {
+      console.log(error);
       setLoading(false);
       setError(true);
     }
   };
 
+  const Play = async () => {
+    try {
+      if (current) {
+        await TrackPlayer.setupPlayer();
+
+        await TrackPlayer.add({
+          id: 'trackId',
+          url: `${current.link}`,
+          title: `${current.title}`,
+          artist: `${current.artist}`,
+          artwork: `${current.image}`,
+        });
+
+        await TrackPlayer.play();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    getDatabase();
-  }, [page]);
+    async () => {
+      await TrackPlayer.setupPlayer();
+      await getDatabase();
+    };
+  }, []);
+
+  useEffect(() => {}, [current]);
 
   return (
     <View style={styles.container}>
