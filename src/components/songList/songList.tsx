@@ -1,15 +1,17 @@
 import React from 'react';
-import {View, VirtualizedList, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 import SongCard from '../songCard/songCard';
 import styles from './style';
 
-const SongList = ({data, onEndReach}: {data: any[]; onEndReach: any}) => {
-  const getItem = (items: any, index: any) => {
-    return items[index];
-  };
-
-  const getItemCount = () => data.length;
-
+const SongList = ({
+  data,
+  onEndReach,
+  setCurrent,
+}: {
+  data: any[];
+  onEndReach: any;
+  setCurrent: any;
+}) => {
   return (
     <View style={styles.container}>
       <FlatList
@@ -23,7 +25,13 @@ const SongList = ({data, onEndReach}: {data: any[]; onEndReach: any}) => {
               art={item.artwork}
               title={item.title}
               artist={item.artist}
-              play={() => {}}
+              play={() =>
+                setCurrent({
+                  image: item.artwork,
+                  title: item.title,
+                  artist: item.artist,
+                })
+              }
             />
           );
         }}

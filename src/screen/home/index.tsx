@@ -4,8 +4,15 @@ import styles from './style';
 import {trpc} from '../../utils/trpc';
 import {Logo, Error, SongList, Player, Header} from '../../components';
 
+interface CurrentProps {
+  artist: string;
+  title: string;
+  image: string;
+}
+
 const Home = () => {
   const [songData, setSongData] = useState<any[]>([]);
+  const [current, setCurrent] = useState<CurrentProps | null>(null);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasError, setError] = useState<boolean>(false);
@@ -43,13 +50,18 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Player />
       <Header />
+      <Player
+        artist={current?.artist}
+        title={current?.title}
+        image={current?.image}
+      />
       <SongList
         data={songData}
         onEndReach={() => {
           setPage(page + 1);
         }}
+        setCurrent={setCurrent}
       />
       <Logo loading={loading} />
       <Error error={hasError} />

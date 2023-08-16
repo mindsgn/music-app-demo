@@ -1,20 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    width: '100%',
-    height: 350,
-    borderRadius: 30,
-    margin: 4,
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
   imageContainer: {
     position: 'relative',
     width: '100%',
     height: 350,
-    borderRadius: 30,
     margin: 4,
     flex: 1,
     justifyContent: 'flex-end',
@@ -32,6 +22,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'black',
     justifyContent: 'space-between',
+    borderBottomStartRadius: 15,
+    borderBottomEndRadius: 15,
     padding: 10,
   },
   text: {

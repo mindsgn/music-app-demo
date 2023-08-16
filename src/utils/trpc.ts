@@ -5,7 +5,7 @@ import {ApiRoute} from '../../../mixo-backend/src/app';
 export const trpc = createTRPCProxyClient<ApiRoute>({
   links: [
     httpBatchLink({
-      url: 'https://plankton-app-5voay.ondigitalocean.app/api',
+      url: 'http://10.5.48.88:8080/api',
     }),
   ],
 });

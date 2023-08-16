@@ -5,8 +5,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: 50,
-    bottom: 5,
+    bottom: 0,
     zIndex: 1,
+    backgroundColor: '#000000',
+    padding: 5,
   },
   blurContainer: {
     position: 'relative',
