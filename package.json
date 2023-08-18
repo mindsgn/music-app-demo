@@ -20,6 +20,7 @@
   "dependencies": {
     "@klarna/react-native-vector-drawable": "^0.4.0",
     "@magic-sdk/react-native-bare": "^20.1.0",
+    "@miblanchard/react-native-slider": "^2.3.1",
     "@react-native-async-storage/async-storage": "^1.19.1",
     "@react-native-community/blur": "^4.3.2",
     "@react-navigation/native": "^6.1.6",

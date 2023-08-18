@@ -1592,6 +1592,11 @@
   resolved "https://registry.yarnpkg.com/@magic-sdk/types/-/types-16.1.0.tgz#eb63ee9e17e7ce303aabbf20ae695e84a63933f0"
   integrity sha512-Xc8Py1CN0RytLoolhAHdDc+uZbNCIIYwfXxzqHb8ZmJTUMT4rwcnDZOvCxaqfIfCINd0dln8lY1AJc3QAYtiLg==
 
+"@miblanchard/react-native-slider@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@miblanchard/react-native-slider/-/react-native-slider-2.3.1.tgz#79e0f1f9b1ce43ef25ee51ee9256c012e5dfa412"
+  integrity sha512-J/hZDBWmXq8fJeOnTVHqIUVDHshqMSpJVxJ4WqwuCBKl5Rke9OBYXIdkSlgi75OgtScAr8FKK5KNkDKHUf6JIg==
+
 "@noble/curves@1.1.0", "@noble/curves@~1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.1.0.tgz#f13fc667c89184bc04cccb9b11e8e7bae27d8c3d"
