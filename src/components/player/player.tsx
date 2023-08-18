@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,49 +8,71 @@ import {
 } from 'react-native';
 import styles from './style';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {BlurView} from '@react-native-community/blur';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+import TrackPlayer, {State} from 'react-native-track-player';
+import {useProgress} from 'react-native-track-player';
 
 const Player = ({
   image = null,
   artist = null,
   title = null,
+  state,
 }: {
-  image?: string | null;
-  artist?: string | null;
-  title?: string | null;
+  image: string | null;
+  artist: string | null;
+  title: string | null;
+  state: State;
 }) => {
   const offset = useSharedValue(-100);
+  const [slider, setSlider] = useState<number>(0);
+  const {position, buffered, duration} = useProgress();
 
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{translateY: offset.value}],
   }));
 
   useEffect(() => {
-    if (artist && title) {
-      //offset.value = withSpring(
-      //  withTiming(-offset.value, {duration: 1300}),
-      //  0,
-      //  true,
-      //);
-    }
-  }, [artist, title, image, offset]);
+    setSlider((position / duration) * 100);
+  }, [position, buffered, duration]);
 
   return (
     <Animated.View style={styles.container}>
+      <View
+        style={[
+          styles.slider,
+          {
+            width: `${slider}%`,
+          },
+        ]}
+      />
       <View style={styles.blurContainer}>
         <View style={styles.detailsContainer}>
           <Image source={{uri: image}} style={styles.imageContainer} />
           <View style={styles.textContainer}>
-            <Text style={styles.artistText}>{artist}</Text>
-            <Text style={styles.titleText}>{title}</Text>
+            <Text numberOfLines={1} style={styles.artistText}>
+              {artist}
+            </Text>
+            <Text numberOfLines={1} style={styles.titleText}>
+              {title}
+            </Text>
           </View>
         </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            state === State.Playing ? TrackPlayer.pause() : TrackPlayer.play()
+          }>
+          <Icon
+            name={state === State.Playing ? 'pause' : 'play'}
+            size={25}
+            color="black"
+          />
+        </TouchableOpacity>
       </View>
     </Animated.View>
   );

@@ -3,18 +3,17 @@ import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from './style';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
+import {State} from 'react-native-track-player';
 
 const SongCard = ({
   artist,
   title,
   art = '',
-  link = null,
   play,
 }: {
   artist?: string;
   title?: string;
   art?: string;
-  link?: string;
   play: () => void;
 }) => {
   return (

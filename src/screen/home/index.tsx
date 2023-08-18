@@ -3,32 +3,52 @@ import {View} from 'react-native';
 import styles from './style';
 import {trpc} from '../../utils/trpc';
 import {Logo, Error, SongList, Player, Header} from '../../components';
-import TrackPlayer, {State} from 'react-native-track-player';
+import TrackPlayer, {
+  State,
+  AppKilledPlaybackBehavior,
+  useTrackPlayerEvents,
+  Event,
+} from 'react-native-track-player';
 
 interface CurrentProps {
-  artist: string;
-  title: string;
-  image: string;
-  link: string;
+  id: string | null;
+  state: State;
+  artist: string | null;
+  title: string | null;
+  image: string | null;
+  link: string | null;
 }
+
+const events = [Event.PlaybackState, Event.PlaybackError];
 
 const Home = () => {
   const [songData, setSongData] = useState<any[]>([]);
-  const [current, setCurrent] = useState<CurrentProps | null>(null);
+  const [current, setCurrent] = useState<CurrentProps>({
+    id: null,
+    state: State.None,
+    artist: null,
+    title: null,
+    image: null,
+    link: null,
+  });
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasError, setError] = useState<boolean>(false);
 
   const getDatabase = async () => {
     try {
-      await TrackPlayer.setupPlayer();
+      TrackPlayer.updateOptions({
+        android: {
+          appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback,
+        },
+      });
       const songResponse = await trpc.getSongs.query({
         limit: 10,
         page,
       });
       const {data} = songResponse;
       if (data.length === 0 && songData.length === 0) {
-        setError(true);
+        // setError(true);
       } else {
         const uniqueIdsData1 = new Set(
           songData.map(item => JSON.stringify(item)),
@@ -42,21 +62,26 @@ const Home = () => {
       }
       setLoading(false);
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
       setLoading(false);
-      setError(true);
+      // setError(true);
     }
   };
 
-  const Play = async () => {
+  const TrackPlayerSetup = async () => {
+    await TrackPlayer.setupPlayer();
+  };
+
+  const StopAndPlay = async () => {
     try {
       if (current) {
         const state = await TrackPlayer.getState();
-        if (state === State.Playing) {
+        if (state === State.Playing || state === State.Paused) {
+          TrackPlayer.pause();
           TrackPlayer.reset();
         }
         await TrackPlayer.add({
-          id: 'trackId',
+          id: `${current.id}`,
           url: `${current.link}`,
           title: `${current.title}`,
           artist: `${current.artist}`,
@@ -70,24 +95,45 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    getDatabase();
-    async () => {};
-  }, []);
+  useTrackPlayerEvents(events, event => {
+    if (event.type === Event.PlaybackError) {
+      console.warn('An error occured while playing the current track.');
+    }
+    if (event.type === Event.PlaybackState) {
+      if (event.state === State.Playing) {
+        setCurrent({...current, state: State.Playing});
+      }
+      if (event.state === State.Connecting) {
+        setCurrent({...current, state: State.Connecting});
+      }
+
+      if (event.state === State.Paused) {
+        setCurrent({...current, state: State.Paused});
+      }
+    }
+  });
 
   useEffect(() => {
-    if (current && current.link) {
-      Play();
+    getDatabase();
+  }, [page]);
+
+  useEffect(() => {
+    if (current.artist && current.link && current.title) {
+      StopAndPlay();
     }
-  }, [current]);
+  }, [current.artist, current.link, current.title]);
+
+  useEffect(() => {
+    TrackPlayerSetup();
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Header />
       <Player
-        artist={current?.artist}
-        title={current?.title}
-        image={current?.image}
+        artist={current.artist}
+        title={current.title}
+        image={current.image}
+        state={current.state}
       />
       <SongList
         data={songData}

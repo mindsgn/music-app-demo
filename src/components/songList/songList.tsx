@@ -2,6 +2,7 @@ import React from 'react';
 import {View, FlatList} from 'react-native';
 import SongCard from '../songCard/songCard';
 import styles from './style';
+import {State} from 'react-native-track-player';
 
 const SongList = ({
   data,
@@ -17,7 +18,7 @@ const SongList = ({
       <FlatList
         data={data}
         onEndReached={onEndReach}
-        onEndReachedThreshold={50}
+        onEndReachedThreshold={90}
         renderItem={({item, index}: {item: any; index: number}) => {
           return (
             <SongCard
@@ -29,6 +30,7 @@ const SongList = ({
                 setCurrent({
                   image: item.artwork,
                   title: item.title,
+                  state: State.None,
                   artist: item.artist,
                   link: item.link,
                 })
