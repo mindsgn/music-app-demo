@@ -1,7 +1,9 @@
-import Logo from './logo/logo';
-import SongList from './songList/songList';
-import Error from './error/logo';
-import Player from './player/player';
-import Header from './header/header';
+import Logo from './logo';
+import SongList from './songList';
+import Error from './error';
+import Player from './player';
+import Header from './header';
+import Footer from './footer';
+import CommunityCard from './communityCard';
 
-export {Logo, SongList, Error, Player, Header};
+export {Logo, SongList, Error, Player, Header, Footer, CommunityCard};

@@ -38,8 +38,12 @@ const styles = StyleSheet.create({
   textContainer: {
     paddingLeft: 10,
   },
-  artistText: {color: 'white'},
+  artistText: {
+    color: 'white',
+    fontFamily: 'SF-Pro-Rounded-Bold',
+  },
   titleText: {
+    fontFamily: 'SF-Pro-Rounded-Bold',
     fontSize: 21,
     color: '#E0E0E0',
     fontWeight: 'bold',
@@ -51,7 +55,6 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 50,
     height: 50,
-    backgroundColor: 'white',
     borderRadius: 10,
   },
 });

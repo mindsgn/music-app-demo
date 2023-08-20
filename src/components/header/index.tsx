@@ -1,7 +1,6 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
+import {View} from 'react-native';
 import styles from './style';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import {BlurView} from '@react-native-community/blur';
 
 const Header = () => {

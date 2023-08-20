@@ -6,12 +6,12 @@
   },
   "include": ["src", "config"],
   "exclude": [
-    "android",
-    "fastlane",
-    "ios",
-    "node_modules",
-    ".vscode",
-    "__tests__",
-    "_bundle"
+    "android/",
+    "fastlane/",
+    "ios/",
+    "node_modules/",
+    ".vscode/",
+    "__tests__/",
+    "_bundle/"
   ]
 }

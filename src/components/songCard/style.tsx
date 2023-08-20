@@ -30,12 +30,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   textArtist: {
+    fontFamily: 'SF-Pro-Rounded-Bold',
     color: '#3A3C3C',
   },
   textTitle: {
+    fontFamily: 'SF-Pro-Rounded-Heavy',
     fontSize: 21,
     color: '#E0E0E0',
-    fontWeight: 'bold',
   },
   source: {
     fontWeight: 'bold',

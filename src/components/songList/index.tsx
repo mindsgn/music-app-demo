@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
-import SongCard from '../songCard/songCard';
+import SongCard from '../songCard';
 import styles from './style';
 import {State} from 'react-native-track-player';
+import {CommunityCard} from '..';
 
 const SongList = ({
   data,
@@ -22,12 +23,13 @@ const SongList = ({
         renderItem={({item, index}: {item: any; index: number}) => {
           return (
             <SongCard
-              key={index}
+              key={`${index}-${item.id}`}
               art={item.artwork}
               title={item.title}
               artist={item.artist}
               play={() =>
                 setCurrent({
+                  id: item.id,
                   image: item.artwork,
                   title: item.title,
                   state: State.None,

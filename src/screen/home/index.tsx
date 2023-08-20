@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import styles from './style';
 import {trpc} from '../../utils/trpc';
-import {Logo, Error, SongList, Player, Header} from '../../components';
+import {Logo, Error, SongList, Player} from '../../components';
 import TrackPlayer, {
   State,
   AppKilledPlaybackBehavior,

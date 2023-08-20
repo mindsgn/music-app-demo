@@ -70,7 +70,7 @@ const Player = ({
           <Icon
             name={state === State.Playing ? 'pause' : 'play'}
             size={25}
-            color="black"
+            color="#E0E0E0"
           />
         </TouchableOpacity>
       </View>
